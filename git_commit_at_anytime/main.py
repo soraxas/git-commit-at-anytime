@@ -84,7 +84,7 @@ parser.add_argument(
     "-s",
     "--delta-time-since-last-commit",
     metavar="duration",
-    help=f"Set the commit time to be this amount of time ago from now",
+    help=f"Set the commit time to be this amount of time after the latest commit",
     type=str,
 )
 parser.add_argument(
