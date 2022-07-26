@@ -144,14 +144,21 @@ def main(args):
 
     if args.time is not None:
         target_commit_time = dateutil.parser.parse(args.time)
+        print(
+            f">> Using a specific commit time at {humanize.naturalday(target_commit_time)}"
+        )
         actual_commit_time = target_commit_time + random_sign() * random_delta
     elif args.delta_time_since_last_commit is not None:
-        target_commit_time = last_commit_time + str_duration_to_time_delta(
-            args.delta_time_since_last_commit
+        _delta = str_duration_to_time_delta(args.delta_time_since_last_commit)
+        target_commit_time = last_commit_time + _delta
+        print(
+            f">> Target commit time to be {humanize.precisedelta(_delta)} after last commit"
         )
         actual_commit_time = target_commit_time + random_delta
     elif args.delta_time_from_now is not None:
-        target_commit_time = now - str_duration_to_time_delta(args.delta_time_from_now)
+        _delta = str_duration_to_time_delta(args.delta_time_from_now)
+        target_commit_time = now - _delta
+        print(f">> Target commit time to be {humanize.precisedelta(_delta)} ago")
         actual_commit_time = target_commit_time - random_delta
 
     print(f"[New commit time: {actual_commit_time}]")
